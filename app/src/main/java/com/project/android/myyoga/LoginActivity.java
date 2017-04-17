@@ -1,4 +1,4 @@
-package com.example.android.myyoga;
+package com.project.android.myyoga;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.android.myyoga.R;
 
 import butterknife.ButterKnife;
 import butterknife.Bind;
@@ -72,7 +74,7 @@ public class LoginActivity extends AppCompatActivity {
 
         // TODO: Implement your own authentication logic here.
 
-        
+
 
         new android.os.Handler().postDelayed(
                 new Runnable() {
