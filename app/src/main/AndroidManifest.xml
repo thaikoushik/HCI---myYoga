@@ -3,6 +3,7 @@
     package="com.example.android.myyoga">
 
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,18 +11,21 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.project.android.myyoga.MainActivity"
-            android:label="@string/app_name" >
+            android:name="com.project.android.myyoga.activities.MainActivity"
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.project.android.myyoga.LoginActivity" android:theme="@style/AppTheme.Dark" />
-        <activity android:name="com.project.android.myyoga.SignupActivity" android:theme="@style/AppTheme.Dark" />
+        <activity
+            android:name="com.project.android.myyoga.activities.LoginActivity"
+            android:theme="@style/AppTheme.Dark" />
+        <activity
+            android:name="com.project.android.myyoga.activities.SignupActivity"
+            android:theme="@style/AppTheme.Dark" />
+        <activity android:name="com.project.android.myyoga.activities.Hello"></activity>
     </application>
-
-
 
 </manifest>

@@ -1,8 +1,8 @@
-package com.project.android.myyoga;
+package com.project.android.myyoga.activities;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
