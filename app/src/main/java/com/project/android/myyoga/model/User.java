@@ -1,7 +1,5 @@
 package com.project.android.myyoga.model;
 
-import java.util.Date;
-
 /**
  * Created by thaik on 4/16/2017.
  */

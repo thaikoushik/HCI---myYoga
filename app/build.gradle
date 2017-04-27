@@ -5,7 +5,7 @@ android {
     useLibrary 'org.apache.http.legacy'
     buildToolsVersion "25.0.2"
     defaultConfig {
-        applicationId "com.example.android.myyoga"
+        applicationId "com.project.android.myyoga"
         minSdkVersion 16
         targetSdkVersion 25
         versionCode 1
@@ -22,9 +22,9 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
+    //androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+      //  exclude group: 'com.android.support', module: 'support-annotations'
+    //})
     compile 'com.android.support:appcompat-v7:25.0.1'
     compile 'com.android.support:design:25.0.1'
     compile 'com.jakewharton:butterknife:7.0.1'
@@ -33,4 +33,7 @@ dependencies {
     compile 'org.apache.httpcomponents:httpclient:4.5'
     compile 'com.loopj.android:android-async-http:1.4.9'
     compile 'com.prolificinteractive:material-calendarview:1.4.3'
+    compile files('libs/YouTubeAndroidPlayerApi.jar')
+    compile 'com.google.android.gms:play-services-appindexing:8.4.0'
+    compile 'com.google.code.gson:gson:2.7'
 }

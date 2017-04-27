@@ -12,10 +12,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.android.myyoga.R;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.project.android.myyoga.R;
+import com.project.android.myyoga.config.ObjectPreferences;
+import com.project.android.myyoga.config.SessionManager;
+import com.project.android.myyoga.model.User;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,6 +33,8 @@ public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
     private final AppCompatActivity activity = LoginActivity.this;
+    private ObjectPreferences objectPreferences;
+
     @Bind(R.id.input_email)
     EditText _emailText;
     @Bind(R.id.input_password)
@@ -38,6 +43,8 @@ public class LoginActivity extends AppCompatActivity {
     Button _loginButton;
     @Bind(R.id.link_signup)
     TextView _signupLink;
+
+    User user = new User();
     private NestedScrollView nestedScrollView;
 
     @Override
@@ -45,11 +52,12 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-
+        objectPreferences = (ObjectPreferences) this.getApplication();
         _loginButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
+
                 login();
             }
         });
@@ -83,35 +91,18 @@ public class LoginActivity extends AppCompatActivity {
         progressDialog.setMessage("Authenticating...");
         progressDialog.show();
 
-        String email = _emailText.getText().toString();
-        String password = _passwordText.getText().toString();
 
-
-        RequestParams requestParams = new RequestParams();
-        requestParams.put("email", email);
-        requestParams.put("password", password);
-        invokeWS(requestParams);
         // DONE: Implement your own authentication logic here.
-/*        db = new DatabaseHelper(activity);
-
-        if(db.checkUser(email,password)){
-            Intent accountsIntent = new Intent(activity, Hello.class);
-            accountsIntent.putExtra("Email", email);
-            emptyInputEditText();
-            startActivity(accountsIntent);
-        } else {
-            onLoginFailed();
-            progressDialog.dismiss();
-           Snackbar.make(nestedScrollView, getString(R.string.error_valid_email_password), Snackbar.LENGTH_LONG).show();
-        }
-
-*/
         new android.os.Handler().postDelayed(
                 new Runnable() {
                     public void run() {
-                        // On complete call either onLoginSuccess or onLoginFailed
-                        // onLoginSuccess();
-                        //onLoginFailed();
+                        String email = _emailText.getText().toString();
+                        String password = _passwordText.getText().toString();
+
+                        RequestParams requestParams = new RequestParams();
+                        requestParams.put("email", email);
+                        requestParams.put("password", password);
+                        invokeWS(requestParams);
                         progressDialog.dismiss();
                     }
                 }, 3000);
@@ -137,23 +128,45 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] response) {
                 try {
+
+                    SessionManager sessionManager = objectPreferences.getSessionManager();
+
                     String responseString = new String(response, "UTF-8");
                     JSONObject obj = new JSONObject(responseString);
                     Log.i(obj.toString(), "This is JSON response");
                     if (obj.getBoolean("status")) {
+                        //Log.i((obj.get("User")).toString(),"User Object");
+                        Log.i(obj.toString(), "This is JSON response");
+
+                        JSONObject userJSON = obj.getJSONObject("User");
+                        user.setName(userJSON.getString("name"));
+                        user.setEmail(userJSON.getString("email"));
+                        user.setAddress(userJSON.getString("address"));
+                        user.setSex(userJSON.getString("gender"));
+                        user.setHeight(userJSON.getString("Height"));
+                        user.setWeight(userJSON.getString("Weight"));
+                        user.setDob(userJSON.getString("dob"));
+                        if(sessionManager != null){
+                            sessionManager.putObject("User", user);
+                            sessionManager.commit();
+                        } else {
+                            Log.i(TAG, "Preference is Null");
+                        }
                         Intent accountsIntent = new Intent(activity, Hello.class);
                         //accountsIntent.putExtra("Email", email);
                         emptyInputEditText();
                         startActivity(accountsIntent);
+
                     } else {
                         onLoginFailed();
 
                     }
                 } catch (JSONException e) {
-
+                    e.printStackTrace();
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                 }
+                //return user;
             }
 
             @Override
@@ -169,7 +182,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
-
+//        return user;
     }
 
     @Override

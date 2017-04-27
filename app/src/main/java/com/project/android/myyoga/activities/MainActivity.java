@@ -6,7 +6,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.example.android.myyoga.R;
+import com.project.android.myyoga.R;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -15,8 +15,6 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
