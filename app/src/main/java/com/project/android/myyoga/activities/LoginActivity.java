@@ -152,7 +152,7 @@ public class LoginActivity extends AppCompatActivity {
                         } else {
                             Log.i(TAG, "Preference is Null");
                         }
-                        Intent accountsIntent = new Intent(activity, Hello.class);
+                        Intent accountsIntent = new Intent(activity, AsanaDisplay.class);
                         //accountsIntent.putExtra("Email", email);
                         emptyInputEditText();
                         startActivity(accountsIntent);

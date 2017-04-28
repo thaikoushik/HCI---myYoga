@@ -26,6 +26,9 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.project.android.myyoga.R;
+import com.project.android.myyoga.config.ObjectPreferences;
+import com.project.android.myyoga.config.SessionManager;
+import com.project.android.myyoga.model.User;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -42,6 +45,9 @@ import cz.msebera.android.httpclient.Header;
 public class SignupActivity extends AppCompatActivity {
     private static final String TAG = "SignupActivity";
     private final AppCompatActivity activity = SignupActivity.this;
+
+    private ObjectPreferences objectPreferences;
+    User user = new User();
     @Bind(R.id.input_name)
     EditText _nameText;
 
@@ -103,6 +109,7 @@ public class SignupActivity extends AppCompatActivity {
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
+        objectPreferences = (ObjectPreferences) this.getApplication();
         _signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -187,7 +194,7 @@ public class SignupActivity extends AppCompatActivity {
         _signupButton.setEnabled(true);
 
         setResult(RESULT_OK, null);
-        Intent intent = new Intent(getApplicationContext(), Hello.class);
+        Intent intent = new Intent(getApplicationContext(), AsanaDisplay.class);
         startActivity(intent);
         finish();
         overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
@@ -271,11 +278,26 @@ public class SignupActivity extends AppCompatActivity {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] response) {
                 try {
+                    SessionManager sessionManager = objectPreferences.getSessionManager();
                     String responseString = new String(response, "UTF-8");
                     JSONObject obj = new JSONObject(responseString);
                     Log.i(obj.toString(), "This is JSON response");
                     if (obj.getBoolean("status")) {
-                        Intent accountsIntent = new Intent(activity, Hello.class);
+                        JSONObject userJSON = obj.getJSONObject("User");
+                        user.setName(userJSON.getString("name"));
+                        user.setEmail(userJSON.getString("email"));
+                        user.setAddress(userJSON.getString("address"));
+                        user.setSex(userJSON.getString("gender"));
+                        user.setHeight(userJSON.getString("Height"));
+                        user.setWeight(userJSON.getString("Weight"));
+                        user.setDob(userJSON.getString("dob"));
+                        if(sessionManager != null){
+                            sessionManager.putObject("User", user);
+                            sessionManager.commit();
+                        } else {
+                            Log.i(TAG, "Preference is Null");
+                        }
+                        Intent accountsIntent = new Intent(activity, AsanaDisplay.class);
                         //accountsIntent.putExtra("Email", email);
                         emptyInputEditText();
                         startActivity(accountsIntent);

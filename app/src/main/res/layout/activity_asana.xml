@@ -23,11 +23,19 @@
         android:layout_below="@+id/youtube_view"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
-
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/text_name"/>
         <CheckedTextView
             android:text="CheckedTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/checkedTextView" />
+        </LinearLayout>
     </ScrollView>
 </RelativeLayout>
