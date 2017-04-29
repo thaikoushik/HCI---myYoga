@@ -1,8 +1,11 @@
 package com.project.android.myyoga.activities;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.android.youtube.player.YouTubeBaseActivity;
@@ -33,6 +36,8 @@ public class AsanaDisplay extends YouTubeBaseActivity implements YouTubePlayer.O
     private String username = "";
     private YouTubePlayerView youTubePlayerView;
     private ObjectPreferences objectPreferences;
+    private ListView listview;
+    ArrayAdapter<String> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,18 +45,28 @@ public class AsanaDisplay extends YouTubeBaseActivity implements YouTubePlayer.O
         setContentView(R.layout.activity_asana);
         displayYoga();
         youTubePlayerView = (YouTubePlayerView) findViewById(R.id.youtube_view);
+        listview = (ListView) findViewById(R.id.steps_list);
         youTubePlayerView.initialize(Config.YOUTUBE_API_KEY, this);
         objectPreferences = (ObjectPreferences) this.getApplication();
         SessionManager sessionManager = objectPreferences.getSessionManager();
         User user = sessionManager.getObject("User", User.class);
-        Log.i(TAG, "User Name is " + user.getName());
+
 
     }
+
 
     @Override
     public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean restored) {
         if (!restored) {
             youTubePlayer.cueVideo(yAsana.getYoutubeValue());
+           // Log.i(TAG, "User Name is " + user.getName());
+           // Log.i(TAG, yAsana.getYogaName());
+            //Log.i(TAG, yAsana.getYogaDescription());
+            //Log.i(TAG, yAsana.getYogaLevel());
+            //Log.i(TAG, yAsana.getYoutubeValue());
+            String[] steps = (yAsana.getYogaDescription()).split(".-");
+            adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, steps);
+            listview.setAdapter(adapter);
         }
     }
 
@@ -82,8 +97,8 @@ public class AsanaDisplay extends YouTubeBaseActivity implements YouTubePlayer.O
         String name = "Surya Namskar";
         RequestParams requestParams = new RequestParams();
         requestParams.add("yoganame", name);
-        invokeWS(requestParams);
 
+        invokeWS(requestParams);
     }
 
     private void invokeWS(RequestParams requestParams) {
@@ -100,6 +115,7 @@ public class AsanaDisplay extends YouTubeBaseActivity implements YouTubePlayer.O
                         yAsana.setYogaName(yogaJSON.getString("asanaName"));
                         yAsana.setYogaLevel(yogaJSON.getString("Level"));
                         yAsana.setYoutubeValue(yogaJSON.getString("youtubeId"));
+                        yAsana.setYogaDescription(yogaJSON.getString("Steps"));
                     } else {
                         fetchFailed();
                     }

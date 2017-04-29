@@ -26,7 +26,10 @@
         <activity
             android:name="com.project.android.myyoga.activities.SignupActivity"
             android:theme="@style/AppTheme.Dark" />
-        <activity android:name="com.project.android.myyoga.activities.AsanaDisplay"></activity><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
+        <activity
+            android:name="com.project.android.myyoga.activities.AsanaDisplay"
+            android:configChanges="orientation|screenSize">
+        </activity><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
      App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
 
         <meta-data

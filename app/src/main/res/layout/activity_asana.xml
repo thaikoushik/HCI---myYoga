@@ -16,26 +16,20 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="206dp"
-        android:layout_below="@+id/youtube_view"
+        android:layout_height="310dip"
+        android:gravity="bottom"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
-        <LinearLayout
+        android:orientation="horizontal">
+        <ListView
+            android:id="@+id/steps_list"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/text_name"/>
-        <CheckedTextView
-            android:text="CheckedTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/checkedTextView" />
-        </LinearLayout>
-    </ScrollView>
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"/>
+
+    </LinearLayout>
+
 </RelativeLayout>
