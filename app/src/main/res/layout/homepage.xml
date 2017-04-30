@@ -35,5 +35,6 @@
         android:textColor="@color/colorPrimaryLight"
         android:textSize="30sp"
         android:textStyle="bold"
-        android:text="Suggestion" />
+        android:text="Suggestion"
+        android:onClick="perform_action3"/>
 </LinearLayout>

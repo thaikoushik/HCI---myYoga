@@ -9,4 +9,16 @@
     <string name="text_accounts">All Accounts</string>
     <string name="hint_minute">Minute</string>
     <string name="message_minutes">Please Enter Minutes...</string>
+    <string name="title_message">What do you want to concentrate on?</string>
+    <string name="option_1">Stressed</string>
+    <string name="option_2">Depressed</string>
+    <string name="option_3">Eyes</string>
+    <string name="option_4">Anxiety</string>
+    <string name="option_5">Legs</string>
+    <string name="option_6">Back</string>
+    <string name="option_7">BMI</string>
+    <string name="btn_display">Send</string>
+    <string name="weight">Weight in Pounds</string>
+    <string name="height">Height in Inches</string>
+    <string name="title_activity_asana_home_page">AsanaHomePage</string>
 </resources>

@@ -38,11 +38,14 @@ public class AsanaDisplay extends YouTubeBaseActivity implements YouTubePlayer.O
     private ObjectPreferences objectPreferences;
     private ListView listview;
     ArrayAdapter<String> adapter;
+    String yName = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_asana);
+        Intent intent= getIntent();
+        yName=intent.getStringExtra("YOGANAME");
         displayYoga();
         youTubePlayerView = (YouTubePlayerView) findViewById(R.id.youtube_view);
         listview = (ListView) findViewById(R.id.steps_list);
@@ -94,9 +97,9 @@ public class AsanaDisplay extends YouTubeBaseActivity implements YouTubePlayer.O
     private void displayYoga() {
         Log.i(TAG, "Inside displayYoga");
         // TODO: GET the name from the other Activity
-        String name = "Surya Namskar";
+        //String name = ;
         RequestParams requestParams = new RequestParams();
-        requestParams.add("yoganame", name);
+        requestParams.add("yoganame", yName);
 
         invokeWS(requestParams);
     }

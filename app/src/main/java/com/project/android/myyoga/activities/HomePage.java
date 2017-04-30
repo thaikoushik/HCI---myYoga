@@ -42,4 +42,9 @@ public class HomePage extends Activity {
         Intent intent = new Intent(HomePage.this, AsanaDisplay.class);
         startActivity(intent);
     }
+    public void perform_action3(View v)
+    {
+        Intent intent = new Intent(HomePage.this, Suggestions.class);
+        startActivity(intent);
+    }
 }

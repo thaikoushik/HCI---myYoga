@@ -38,6 +38,9 @@
             android:name="com.project.android.myyoga.activities.Meditation"
             android:label="Meditation" />
         <activity
+            android:name="com.project.android.myyoga.activities.Suggestions"
+            android:label="Suggestions" />
+        <activity
             android:name="com.project.android.myyoga.activities.AsanaHomePage"
             android:label="AsanaHomePage" />
         <activity

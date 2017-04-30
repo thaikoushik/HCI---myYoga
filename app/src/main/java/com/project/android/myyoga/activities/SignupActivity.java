@@ -13,8 +13,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.NumberPicker;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +36,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
@@ -63,8 +66,8 @@ public class SignupActivity extends AppCompatActivity {
     EditText _reEnterPasswordText;
     @Bind(R.id.input_dob)
     EditText _dob;
-    @Bind(R.id.input_height)
-    EditText _height;
+    //@Bind(R.id.input_height)
+    //EditText _height;
     @Bind(R.id.input_weight)
     EditText _weight;
     @Bind(R.id.btn_signup)
@@ -73,6 +76,14 @@ public class SignupActivity extends AppCompatActivity {
     RadioGroup _genderGroup;
     @Bind(R.id.link_login)
     TextView _loginLink;
+    @Bind(R.id.height_pick)
+    NumberPicker _numberPicker;
+    @Bind(R.id.height_inch_pick)
+    NumberPicker _numberInchPicker;
+    String height_ft = "";
+    String height_inch = "";
+
+
     Calendar myCalendar = Calendar.getInstance();
     DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 
@@ -99,6 +110,12 @@ public class SignupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
         ButterKnife.bind(this);
+        _numberPicker.setMaxValue(10);
+        _numberPicker.setMinValue(1);
+        _numberInchPicker.setMaxValue(12);
+        _numberInchPicker.setMinValue(0);
+        _numberInchPicker.setWrapSelectorWheel(true);
+        _numberPicker.setWrapSelectorWheel(true);
         _dob.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -109,11 +126,26 @@ public class SignupActivity extends AppCompatActivity {
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
+
+
         objectPreferences = (ObjectPreferences) this.getApplication();
         _signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 signup();
+            }
+        });
+
+        _numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+               height_ft = Integer.toString(newVal);
+            }
+        });
+        _numberInchPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                height_inch = Integer.toString(newVal);
             }
         });
 
@@ -171,7 +203,9 @@ public class SignupActivity extends AppCompatActivity {
                         String reEnterPassword = _reEnterPasswordText.getText().toString();
                         String dob = _dob.getText().toString();
                         String gender = ((RadioButton) findViewById(_genderGroup.getCheckedRadioButtonId())).getText().toString();
-                        String height = _height.getText().toString();
+                        //String height = _height.getText().toString();
+                        String height = (height_ft).concat("."+height_inch);
+                        Log.i(TAG, height);
                         String weight = _weight.getText().toString();
                         RequestParams requestParams = new RequestParams();
                         requestParams.put("email", email);
