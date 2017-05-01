@@ -12,6 +12,7 @@
         android:textSize="30sp"
         android:fontFamily="cursive"
         android:text="Beginner"
+        android:onClick="perform_action_beginner"
         />
 
     <TextView
@@ -22,5 +23,7 @@
         android:textColor="@color/colorPrimaryDark"
         android:background="@color/Transparent"
         android:textSize="30sp"
-        android:text="Expert" />
+        android:text="Expert"
+        android:fontFamily="cursive"
+        android:onClick="perform_action_expert"/>
 </LinearLayout>

@@ -22,7 +22,20 @@ public class AsanaHomePage extends Activity {
         textView2.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
     TextView textView3=(TextView) findViewById(R.id.textView3);
         textView3.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+
     }
+
+    public void perform_action_beginner(View v)
+    {
+        Intent intent = new Intent(AsanaHomePage.this, BeginnerAsanas.class);
+        startActivity(intent);
+    }
+    public void perform_action_expert(View v)
+    {
+        Intent intent = new Intent(AsanaHomePage.this, ExpertAsanas.class);
+        startActivity(intent);
+    }
+
 
 }
 

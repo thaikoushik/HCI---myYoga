@@ -46,6 +46,12 @@
         <activity
             android:name="com.project.android.myyoga.activities.Mudras"
             android:label="Mudras" />
+        <activity
+            android:name="com.project.android.myyoga.activities.BeginnerAsanas"
+            android:label="Mudras" />
+        <activity
+            android:name="com.project.android.myyoga.activities.ExpertAsanas"
+            android:label="Mudras" />
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />

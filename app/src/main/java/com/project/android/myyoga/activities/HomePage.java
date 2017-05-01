@@ -39,7 +39,7 @@ public class HomePage extends Activity {
     }
     public void perform_action2(View v)
     {
-        Intent intent = new Intent(HomePage.this, AsanaDisplay.class);
+        Intent intent = new Intent(HomePage.this, AsanaHomePage.class);
         startActivity(intent);
     }
     public void perform_action3(View v)

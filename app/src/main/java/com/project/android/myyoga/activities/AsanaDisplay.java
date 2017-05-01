@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.youtube.player.YouTubeBaseActivity;
@@ -38,6 +39,7 @@ public class AsanaDisplay extends YouTubeBaseActivity implements YouTubePlayer.O
     private ObjectPreferences objectPreferences;
     private ListView listview;
     ArrayAdapter<String> adapter;
+    TextView textView;
     String yName = "";
 
     @Override
@@ -50,11 +52,11 @@ public class AsanaDisplay extends YouTubeBaseActivity implements YouTubePlayer.O
         youTubePlayerView = (YouTubePlayerView) findViewById(R.id.youtube_view);
         listview = (ListView) findViewById(R.id.steps_list);
         youTubePlayerView.initialize(Config.YOUTUBE_API_KEY, this);
+        textView = (TextView) findViewById(R.id.yoga_name);
+        textView.setText(yName);
         objectPreferences = (ObjectPreferences) this.getApplication();
         SessionManager sessionManager = objectPreferences.getSessionManager();
         User user = sessionManager.getObject("User", User.class);
-
-
     }
 
 
@@ -62,11 +64,6 @@ public class AsanaDisplay extends YouTubeBaseActivity implements YouTubePlayer.O
     public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean restored) {
         if (!restored) {
             youTubePlayer.cueVideo(yAsana.getYoutubeValue());
-           // Log.i(TAG, "User Name is " + user.getName());
-           // Log.i(TAG, yAsana.getYogaName());
-            //Log.i(TAG, yAsana.getYogaDescription());
-            //Log.i(TAG, yAsana.getYogaLevel());
-            //Log.i(TAG, yAsana.getYoutubeValue());
             String[] steps = (yAsana.getYogaDescription()).split(".-");
             adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, steps);
             listview.setAdapter(adapter);
@@ -100,7 +97,6 @@ public class AsanaDisplay extends YouTubeBaseActivity implements YouTubePlayer.O
         //String name = ;
         RequestParams requestParams = new RequestParams();
         requestParams.add("yoganame", yName);
-
         invokeWS(requestParams);
     }
 

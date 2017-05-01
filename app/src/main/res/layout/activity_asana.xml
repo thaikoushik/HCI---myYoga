@@ -16,13 +16,16 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="310dip"
         android:gravity="bottom"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:id="@+id/linearLayout">
         <ListView
             android:id="@+id/steps_list"
             android:layout_width="wrap_content"
@@ -31,5 +34,19 @@
             android:layout_centerHorizontal="true"/>
 
     </LinearLayout>
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/yoga_name"
+        android:fontFamily="cursive"
+        android:textStyle="bold"
+        android:layout_marginBottom="13dp"
+        android:layout_above="@+id/linearLayout"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="18dp"
+        android:layout_marginStart="18dp" />
 
 </RelativeLayout>
