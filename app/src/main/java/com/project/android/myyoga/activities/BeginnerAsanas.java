@@ -150,7 +150,7 @@ public class BeginnerAsanas extends AppCompatActivity {
         TextView bt = (TextView) view;
         String str = bt.getText().toString();;
         intent.putExtra("YOGANAME",str);
-        startActivity(intent);
+        startActivityForResult(intent,0);
         overridePendingTransition( R.anim.slide_in_up, R.anim.slide_out_up );
     }
 }

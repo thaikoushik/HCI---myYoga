@@ -132,7 +132,7 @@ public class ExpertAsanas extends AppCompatActivity {
         TextView bt = (TextView) view;
         String str = bt.getText().toString();;
         intent.putExtra("YOGANAME",str);
-        startActivity(intent);
+        startActivityForResult(intent,0);
     }
 
 

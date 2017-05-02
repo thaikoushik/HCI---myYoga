@@ -2,7 +2,9 @@ package com.project.android.myyoga.activities;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Looper;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -16,6 +18,7 @@ import com.google.android.youtube.player.YouTubePlayerView;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.loopj.android.http.SyncHttpClient;
 import com.project.android.myyoga.R;
 import com.project.android.myyoga.config.Config;
 import com.project.android.myyoga.config.ObjectPreferences;
@@ -31,6 +34,8 @@ import java.io.UnsupportedEncodingException;
 import cz.msebera.android.httpclient.Header;
 
 public class AsanaDisplay extends YouTubeBaseActivity implements YouTubePlayer.OnInitializedListener {
+    public static AsyncHttpClient syncHttpClient= new SyncHttpClient();
+    public static AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
     private static final String TAG = "AsanaDisplay";
     private static final int RECOVERY_REQUEST = 1;
     YogaAsana yAsana = new YogaAsana();
@@ -59,6 +64,11 @@ public class AsanaDisplay extends YouTubeBaseActivity implements YouTubePlayer.O
         User user = sessionManager.getObject("User", User.class);
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
 
     @Override
     public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean restored) {
@@ -97,12 +107,20 @@ public class AsanaDisplay extends YouTubeBaseActivity implements YouTubePlayer.O
         //String name = ;
         RequestParams requestParams = new RequestParams();
         requestParams.add("yoganame", yName);
+        //new getVideoData(requestParams).execute();
         invokeWS(requestParams);
     }
 
+    private static AsyncHttpClient getClient()
+    {
+        // Return the synchronous HTTP client when the thread is not prepared
+        if (Looper.myLooper() == null)
+            return syncHttpClient;
+        return asyncHttpClient;
+    }
     private void invokeWS(RequestParams requestParams) {
         AsyncHttpClient client = new AsyncHttpClient();
-        client.get("http://10.0.2.2:8080/MyYoga_-_Project_-_RESTAPI/yoga/fetchYoga", requestParams, new AsyncHttpResponseHandler() {
+        getClient().get("http://10.0.2.2:8080/MyYoga_-_Project_-_RESTAPI/yoga/fetchYoga", requestParams, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] response) {
                 try {
@@ -143,5 +161,19 @@ public class AsanaDisplay extends YouTubeBaseActivity implements YouTubePlayer.O
         //TODO: Redirect the activity to the List of yoga Asanas Activities.
         Toast.makeText(getBaseContext(), "No Fetch Possible", Toast.LENGTH_LONG).show();
 
+    }
+
+    class getVideoData extends AsyncTask<Void,String,Void>{
+
+        RequestParams requestParams;
+        public getVideoData(RequestParams requestParams) {
+            this.requestParams = requestParams;
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            invokeWS(requestParams);
+            return null;
+        }
     }
 }
