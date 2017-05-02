@@ -16,7 +16,6 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 
 import com.project.android.myyoga.R;
 
-@SuppressWarnings("Duplicates")
 public class BeginnerAsanas extends AppCompatActivity {
 
     private Button head,chest, elbow,back,hands,legs;

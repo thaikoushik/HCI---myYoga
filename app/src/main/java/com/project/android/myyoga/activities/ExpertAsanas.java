@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import com.project.android.myyoga.R;
 
-@SuppressWarnings("Duplicates")
 public class ExpertAsanas extends AppCompatActivity {
 
     private Button head,chest, elbow,back,hands,legs;
