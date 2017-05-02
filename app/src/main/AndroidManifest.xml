@@ -28,7 +28,8 @@
             android:theme="@style/AppTheme.Dark" />
         <activity
             android:name="com.project.android.myyoga.activities.AsanaDisplay"
-            android:configChanges="orientation|screenSize">
+            android:configChanges="orientation|screenSize"
+            android:theme="@style/AppTheme.Dark">
         </activity><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
      App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
         <activity
@@ -39,7 +40,8 @@
             android:label="Meditation" />
         <activity
             android:name="com.project.android.myyoga.activities.Suggestions"
-            android:label="Suggestions" />
+            android:label="Suggestions"
+            android:theme="@style/AppTheme.Dark"/>
         <activity
             android:name="com.project.android.myyoga.activities.AsanaHomePage"
             android:label="AsanaHomePage" />
@@ -48,10 +50,12 @@
             android:label="Mudras" />
         <activity
             android:name="com.project.android.myyoga.activities.BeginnerAsanas"
-            android:label="Mudras" />
+            android:label="beiginnerAsanas"
+            android:theme="@style/AppTheme.Dark"/>
         <activity
             android:name="com.project.android.myyoga.activities.ExpertAsanas"
-            android:label="Mudras" />
+            android:label="expertAsanas"
+            android:theme="@style/AppTheme.Dark"/>
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
